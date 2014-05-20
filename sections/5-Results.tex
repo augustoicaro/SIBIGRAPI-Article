@@ -1,0 +1,84 @@
+\section{Experiments}
+%
+We validate our technique through a series of experiments.
+
+
+%------------------------------------------------------------------------- 
+\paragraph*{First experiment}
+%
+The first experiment checks this aspect of our method on perfect examples.
+
+
+%------------------------------------------------------------------------- 
+\paragraph*{Second experiment}
+%
+The second experiment checks the speedup obtained by the implementation strategy compared to previous technique~\cite{Sibgrapi2014}.
+
+
+%------------------------------------------------------------------------- 
+\paragraph*{Third experiment}
+%
+The last experiment test our method on real data.
+
+\section{Results and Discussion}
+%
+We performed the above-mentioned experiments on the following type of data: \ldots{} For each data, we used the following tuning parameters of our method.
+
+
+\begin{table}
+\caption{Performances results: timings are expressed in milliseconds.}
+\label{tab:perfs}
+\centering
+\begin{tabular}{lr|rr|c}
+\multicolumn{1}{c}{\bf Data} &
+\multicolumn{1}{c|}{\bf Size} &
+\multicolumn{1}{c}{\bf Ours} &
+\multicolumn{1}{c|}{\bf Previous} &
+\multicolumn{1}{c}{\bf Gain} \\ \hline
+Data 1	&        50 	& 0.1 &     1 000	& x$10^3$ \\
+Data 2	&      100 	& 0.2 &     2 000	& x$10^3$ \\
+Data 3	&      500 	& 0.8 &   10 000	& x$10^3$ \\
+Data 4	&   1 000 	& 1.2 &   20 000	& x$10^3$ \\
+Data 5	&   5 000 	& 1.9 & 100 000	& x$10^4$ \\
+Data 6	& 10 000 	& 2.1 & 200 000	& x$10^4$
+\end{tabular}
+\end{table}
+%
+%------------------------------------------------------------------------- 
+\subsection{Performances}
+%
+We report on Table~\ref{tab:perfs} the performances of our technique on a computer at xxGhz with this graphic card.
+We observe that our technique outperforms previous approaches on this kind of data, and an equivalent result on this other kind of data.
+
+\subimages[htb]{Quality assessment}{quality}{
+  \subimage{.48}{qualitya}%
+  \subimage{.48}{qualityb}%
+}
+
+
+%------------------------------------------------------------------------- 
+\subsection{Quality}
+%
+As observed on \figref{quality}, our method achieve good results in this situation. 
+This can be measured by this criterion, and the results are reported on Table~\ref{tab:quality}.
+
+\begin{table}
+\caption{Quality measures: timings are expressed in milliseconds.}
+\label{tab:quality}
+\centering
+\begin{tabular}{l|r|r}
+\multicolumn{1}{c}{\bf Images} &
+\multicolumn{1}{c|}{\bf PSNR} &
+\multicolumn{1}{c}{\bf  MSE} \\ \hline
+Image 1	&  40.2	& 0.02 \\
+Image 2	&  30.9	& 1.02 \\
+Image 3 &  20.1 & 0.18 \\
+\end{tabular}
+\end{table}
+
+
+%------------------------------------------------------------------------- 
+\subsection{Limitation}
+%
+As mentioned in Section~\ref{sec:technique}, we expect our method to suit better this kind of data. On the other kind, this particularity does not fit into our formulation for this and that reason. Indeed, this can be observed in the results of \figref{quality}. 
+We plan to improve for that kind of data in future work. However, our technique performed well on this data, which does not respect our condition, since this other aspect reduced the negative impact of its characteristic.
