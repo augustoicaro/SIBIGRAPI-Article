@@ -10,17 +10,6 @@
   timestamp = {2014.05.20}
 }
 
-@CONFERENCE{NEUGEBAUER,
-  author = {NEUGEBAUER, P},
-  title = {Geometrical cloning of 3d objects via simultaneous registration of
-	multiple range images.},
-  booktitle = {International Conference on Shape Modeling and Applications, Washington,
-	DC : IEEE},
-  year = {1997},
-  owner = {leandromiranda},
-  timestamp = {2014.05.21}
-}
-
 @ARTICLE{SCHRZORI,
   author = {SCHR…DER, P. ; ZORIN, D.},
   title = {Subdivision for modeling and animation},
