@@ -1,7 +1,14 @@
 \begin{abstract}
-With the recent evolution of certain applications, there is a growing need for methods of this kind\ldots{}
-
-This paper proposes exactly the right solution for this sub-problem in terms of several criterions. It introduces techniques for this and that tasks, improving this characteristic of the results. It further opens to a wider range of applications, as the experiments related in this paper confirms.
+A edição de superfícies suaves representadas por malhas de triângulos no computador é uma área ativa 
+de pesquisa em Modelagem Geométrica, devido à sua gama cada vez maior de aplicações na indústria 
+e no desenho artístico. Porém, a variedade de ferramentas de edição de superfícies disponíveis atualmente 
+ainda é escassa. Problemas como deformação de forma livre, inserção de texturas geométricas, inpainting, 
+reconstrução com restrições, remoção de ruído, reparos, entre outras, carecem de métodos robustos, 
+flexíveis e eficientes que permitam edição interativa e que sejam capazes de reconstruir superfícies de 
+qualidade. 
+Neste trabalho, usamos a representação de superfícies baseada no operador gradiente discreto 
+da malha, para desenvolver novas ferramentas interativas de edição de objetos 3d representados por malhas 
+de triângulos.
 
 % DO NOT USE SPECIAL CHARACTERS, SYMBOLS, OR MATH IN YOUR TITLE OR ABSTRACT.
 %
@@ -23,11 +30,31 @@ one or two words; separated by semicolon; from specific; to generic fields;
 
 
 %==========================================
-\section{Introduction}
+\section{Introdução}
 %
-In the general context of this field, a certain kind of application has recently aggregated values for the following reasons.
-%
-However, existing approaches to produce good results for this application do not perform optimally yet, being limited to certain aspects and requiring too much resources to be actually used.
+Representação e processamento de objetos 3d é um dos mais importantes tópicos em Computação 
+Gráfica e Modelagem Geométrica. A maneira como um objeto 3d é definido restringe o conjunto de 
+operações que podem ser aplicadas a ele. Diferentes representações de objetos podem exibir diferentes 
+propriedades geométricas, combinatórias e até perceptivas da forma. 
+Uma das representações de superfícies mais pesquisadas nos últimos anos é a que se baseia no 
+operador gradiente discreto em malhas triangulares. Esta representação fornece intrinsicamente as 
+propriedades geométricas destas superfícies, e tem sido muito utilizada para resolver problemas de 
+edição, onde destacamos [1].
+
+No problema de edição de superfícies, deseja-se transformar uma superfície suave, representada no 
+computador por uma malha de triângulos, em uma outra superfície, preservando características como 
+continuidade, suavidade, detalhes, e ao mesmo tempo respeitando restrições impostas pelo usuário. A 
+Figura 1 ilustra o problema.
+
+Porém, a variedade de ferramentas de edição de superfícies disponíveis atualmente ainda é escassa. 
+Problemas como deformação de forma livre, inserção de texturas geométricas, inpainting, reconstrução 
+com restrições, remoção de ruído, reparos, entre outras, carecem de métodos robustos, flexíveis e 
+eficientes que permitam edição interativa e que sejam capazes de reconstruir superfícies de qualidade. 
+No projeto precedente, o operador Laplaciano e gradiente discreto foram estudados, e uma 
+implementação computacional da equação de Poisson foi desenvolvida. Neste projeto, as propriedades do 
+operador gradiente serão investigadas para o desenvolvimento de novas ferramentas de edição interativas 
+de objetos 3d representados por malhas de triângulos. Estas ferramentas serão inspiradas na equação de 
+Poisson, já adotada com sucesso para edição de imagens em [2].
 
 
 %------------------------------------------------------------------------- 

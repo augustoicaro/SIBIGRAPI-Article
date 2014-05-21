@@ -1,11 +1,24 @@
-\section{Implementation}
+\section{Reconstrução}
 %
-In order to reduce the resources needed for our method, we use the following implementation strategy.
+Após a seleção das correspondências entre a malha principal e a malha do detalhe a ser
+adicionada e as parametrizações já estarem alinhadas, iremos trabalhar apendas com as parametrizaçãos
+no $\mathbb{R}^2$. Definimos o conjunto de half-edges do bordo da malha detalhe como 
+$B = {he_0, he_1, he_2, \ldots, he_n} | \forall n \in \mathbb{N}: O(he_n) = -1$, onde $O( )$ retorna o oposto da
+half-edge $HE_n$, $-1$ se não existir e o indice do oposto caso exista, também definimos a poligonal
+$P = {v_0, v_1, v_2, ..., v_n} | \forall n \in \mathbb{N}: v_n = vertex(HE_n)$, onde $vertex( )$ retorna o vertice
+da half-edge. 
 
+Sendo assim iremos excluir cada triângulo da parametrização da malha principal que intersecta ou é
+interior à $P$. Com isso observamos a criação de um componente conexo como podemos ver na [figura 4.1],
+assim precisamos triangular o espaço entre as parametrizações. Para isto vamos usar uma triangulação com
+restrições.
 
 %------------------------------------------------------------------------- 
-\subsection{Solver}
-
+\subsection{Triangulação com Restrições}
+%
+Usaremos a técnica de sweeping(varreduda) para realizar a triangulação, obedecendo o conjunto das
+arestas da restrição $E = {e_0, e_1, e_2, \ldots, e_n} | \forall n \in \mathbb{N}: e_n$ é uma aresta da restrição,
+ou seja, é uma aresta que deve fazer parte da nova triangulação.
 
 %------------------------------------------------------------------------- 
-\subsection{Result display}
+\subsection{Equação de Poisson}
