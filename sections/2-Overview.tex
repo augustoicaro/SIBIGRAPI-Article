@@ -1,10 +1,37 @@
-\subsection{Technique overview}
+%\subsection{Technique overview}
+\subsection{Trabalhos Relacionados}
 
 Para o desenvolvimento desse nosso trabalho, percebemos que métodos de edição de superfícies têm uma participação forte na área de Modelagem Geométrica. Podemos visualizar esse tipo de atividade em aplicações envolvendo indústrias ou manipulação de desenhos artísticos.
 
 Durante muitos anos, a abordagem utilizada na literatura, envolvia uma representação baseada em superfícies paramétricas \cite{FarinG}, que podem ter uma generalização para domínios de base não regular usando técnicas de subdivisão \cite{SCHRZORI}.
 
-Com o crescimento da divulgação dos Scanners 3D, a obtenção de geometrias de superfícies de objetos reais ficou acessível \cite{NEUGEBAUER}. Porém, esses novos tipos de superfícies apresentam uma amostragem densa e não suave, não sendo os métodos de edição de superfícies já existentes. Devido à isso, houve o surgimentos de novas ferramentas para edição desses tipos de superfícies 
+Com o crescimento da divulgação dos Scanners 3D, a obtenção de geometrias de superfícies de objetos reais ficou acessível \cite{NEUGEBAUER}. Porém, esses novos tipos de superfícies apresentam uma amostragem densa e não suave, não sendo os métodos de edição de superfícies já existentes. Devido à isso, houve o surgimentos de novas ferramentas para edição desses tipos de superfícies .
+
+Diversos métodos, surgiram até então para deformação de superfícies. Para o estado da arte dos métodos variacionais lineares, temos  \cite{Olga}, principalmente em relação métodos baseados no operador Laplaciano discreto \cite{Lang} e o Operador Gradiente Discreto \cite{Yu:2004}; que são versões adaptadas para superfícies diferenciadas, para malhas de triângulos.
+
+Por fim, destacamos diversos problemas de edição que carecem de alternativas robustas e interativas. Ao nosso trabalho, a base de autovetores da matriz laplaciana de superfície é usada para realizar edição por meio de frequências.
+
+\subsection{Visão Geral}
+
+Ao longo do desenvolvimento de nosso trabalho, inicialmente utilizamos uma estrutura \cite{che05} capaz de manter as informações de geometria, topologia e conectividade de vértices, arestas e faces de uma malha triangular que representa uma superfícies bidimensional no espaço euclidiano.
+
+%-------------- Tenho que pegar a imagem do retalho triangular ---------------------
+
+
+
+
+
+Para desenvolver esse tipo de ferramentas, focamos na Equação de Poisson
+
+\begin{eqnarray}
+\bigtriangleup x' = div\  \textbf{$g_x$}
+\end{eqnarray}
+
+
+
+
+
+
 
 
 

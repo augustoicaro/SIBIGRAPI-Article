@@ -1,6 +1,27 @@
 % This file was created with JabRef 2.9.2.
 % Encoding: MacRoman
 
+@ARTICLE{Olga,
+  author = {Botsch, Mario and Sorkine, Olga},
+  title = {On Linear Variational Surface Deformation Methods},
+  journal = {IEEE Transactions on Visualization and Computer Graphics},
+  year = {2008},
+  volume = {14},
+  pages = {213--230},
+  number = {1},
+  month = jan,
+  acmid = {1320845},
+  address = {Piscataway, NJ, USA},
+  doi = {10.1109/TVCG.2007.1054},
+  issn = {1077-2626},
+  issue_date = {January 2008},
+  keywords = {discrete differential operators, linear optimization, mesh editing,
+	mesh editing, linear optimization, discrete differential operators},
+  numpages = {18},
+  publisher = {IEEE Educational Activities Department},
+  url = {http://dx.doi.org/10.1109/TVCG.2007.1054}
+}
+
 @ARTICLE{farinG,
   author = {FARIN, G},
   title = {Curves and surfaces for cagd: a practical guide},
@@ -8,6 +29,27 @@
   year = {1996},
   owner = {leandromiranda},
   timestamp = {2014.05.20}
+}
+
+@BOOK{Lang,
+  title = {Analysis I.},
+  publisher = {Massachussets},
+  year = {1968},
+  editor = {Addison-Wesley},
+  author = {LANG, Serge},
+  owner = {leandromiranda},
+  timestamp = {2014.05.23}
+}
+
+@CONFERENCE{NEUGEBAUER,
+  author = {NEUGEBAUER, P},
+  title = {Geometrical cloning of 3d objects via simultaneous registration of
+	multiple range images.},
+  booktitle = {International Conference on Shape Modeling and Applications, Washington,
+	DC : IEEE},
+  year = {1997},
+  owner = {leandromiranda},
+  timestamp = {2014.05.21}
 }
 
 @ARTICLE{SCHRZORI,
@@ -28,4 +70,24 @@
   month = {August},
   booktitle = {SIBGRAPI}
 }
+
+@article{Yu:2004,
+ author = {Yu, Yizhou and Zhou, Kun and Xu, Dong and Shi, Xiaohan and Bao, Hujun and Guo, Baining and Shum, Heung-Yeung},
+ title = {Mesh Editing with Poisson-based Gradient Field Manipulation},
+ journal = {ACM Trans. Graph.},
+ issue_date = {August 2004},
+ volume = {23},
+ number = {3},
+ month = aug,
+ year = {2004},
+ issn = {0730-0301},
+ pages = {644--651},
+ numpages = {8},
+ url = {http://doi.acm.org/10.1145/1015706.1015774},
+ doi = {10.1145/1015706.1015774},
+ acmid = {1015774},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {Local Transform Propagation, Mesh Deformation, Mesh Filtering, Object Merging, Poisson Equation},
+} 
 
