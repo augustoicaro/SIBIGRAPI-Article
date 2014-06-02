@@ -1654,7 +1654,7 @@
 \def\contentsname{Contents}
 \def\listfigurename{List of Figures}
 \def\listtablename{List of Tables}
-\def\refname{References}
+\def\refname{Refer\^{e}ncias}
 \def\indexname{Index}
 \def\figurename{Fig.}
 \def\tablename{TABLE}

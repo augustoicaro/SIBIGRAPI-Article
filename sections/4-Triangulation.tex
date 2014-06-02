@@ -1,24 +1,58 @@
 \section{Reconstrução}
 %
 Após a seleção das correspondências entre a malha principal e a malha do detalhe a ser
-adicionada e as parametrizações já estarem alinhadas, iremos trabalhar apendas com as parametrizaçãos
+adicionada e as parametrizações já estarem alinhadas, iremos trabalhar apenas com as parametrizaçãos
 no $\mathbb{R}^2$. Definimos o conjunto de half-edges do bordo da malha detalhe como 
-$B = {he_0, he_1, he_2, \ldots, he_n} | \forall n \in \mathbb{N}: O(he_n) = -1$, onde $O( )$ retorna o oposto da
-half-edge $HE_n$, $-1$ se não existir e o indice do oposto caso exista, também definimos a poligonal
-$P = {v_0, v_1, v_2, ..., v_n} | \forall n \in \mathbb{N}: v_n = vertex(HE_n)$, onde $vertex( )$ retorna o vertice
-da half-edge. 
+$B_d = {he_0, he_1, he_2, \ldots, he_n} | \forall n \in \mathbb{N}: O(he_n) = -1$ e
+$B_m$ da mesma forma para a malha principal, onde $O( )$ retorna o oposto da half-edge
+$he_n$, $-1$ se não existir e o indice do oposto caso exista, também definimos a poligonal
+$P = {v_0, v_1, v_2, ..., v_n} | \forall n \in \mathbb{N}: v_n = vertex(he_n)$, onde $vertex( )$ retorna o vertice
+da half-edge $he_n$. 
 
 Sendo assim iremos excluir cada triângulo da parametrização da malha principal que intersecta ou é
-interior à $P$. Com isso observamos a criação de um componente conexo como podemos ver na [figura 4.1],
+interior à $P$. Com isso observamos a criação de um componente conexo como podemos ver na \figref{hole},
 assim precisamos triangular o espaço entre as parametrizações. Para isto vamos usar uma triangulação com
 restrições.
+
+\subimages[htb]{Exclusão de triângulos pela parametrização}{hole}{
+  \subimage{.48}{parametrization_hole1}%
+  \subimage{.48}{parametrization_hole2}%
+}
+
+Em seguida iremos usar a Equação de Poisson para suavizar a colagem e ajustar melhor a malha ao espaço preenchido
+pela nova triangulação reduzindo o tamanho dos novos triângulos e aumentando o tamanho dos triângulos do detalhe,
+como podemos ver na \figref{reconstruction}.
 
 %------------------------------------------------------------------------- 
 \subsection{Triangulação com Restrições}
 %
 Usaremos a técnica de sweeping(varreduda) para realizar a triangulação, obedecendo o conjunto das
-arestas da restrição $E = {e_0, e_1, e_2, \ldots, e_n} | \forall n \in \mathbb{N}: e_n$ é uma aresta da restrição,
-ou seja, é uma aresta que deve fazer parte da nova triangulação.
+arestas da restrição demominado por $E = {e_0, e_1, e_2, \ldots, e_n} | \forall n \in \mathbb{N}: e_n$ é uma aresta
+da restrição, onde os vértices das arestas da restrição  $ \subset (B_m \cup B_d)$, e o conjunto de arestas da
+primeira vizinhança de $B_m$ e $B_d$ demominado por $E_v = {e_0, e_1, e_2, \ldots, e_m, e_{m+1}, e_{m+2}, \ldots
+e_{m+n}} | \forall m, n \in \mathbb{N}: e_m$ é uma aresta da da primeira vizinhança de $B_m$ e $e_{M+n}$ é uma aresta
+da primeira vizinhança de $B_d$, onde $M$ é o número de arestas da primeira vizinhança de $B_m$.
+
+A técnica consistem em:
+\begin{itemize}
+ \item{Ordenar os vértices das arestas de $E_v$ de acordo com a coordena x;}
+ \item{Ordenar os vértices de $B_m \cup B_d$ de acordo com a coordenada x;}
+ \item{Testar a visibilidade de cada vértice com os vértices anteriores de ambos vetores;}
+ \item{Se o ponto for visível, adicione a aresta à nova triangulação.}
+\end{itemize}
+
+Seguindo este algoritmo conseguimos uma triângulação que respeita as restrições, mas pode gerar triângulos muito
+finos ou muito pequenos como podemos ver na \figref{triangulation}.
+
+\subimages[htb]{Triângulação com restrições}{triangulation}{
+  \subimage{.48}{parametrization_trianguled1}%
+  \subimage{.48}{parametrization_trianguled2}%
+}
 
 %------------------------------------------------------------------------- 
 \subsection{Equação de Poisson}
+
+\subimages[htb]{Resolução do sistema com gradiente 0 para todos os triângulos gerados pela triângulação com restrição}{reconstruction}{
+  \subimage{.48}{reconstruction1}%
+  \subimage{.48}{reconstruction2}%
+}

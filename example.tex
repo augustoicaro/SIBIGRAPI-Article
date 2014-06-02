@@ -19,7 +19,6 @@
 %
 \documentclass[10pt, conference]{IEEEtran}
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 
 
 % *** MISC UTILITY PACKAGES ***
@@ -220,12 +219,12 @@
 % for over three affiliations, or if they all won't fit within the width
 % of the page, use this alternative format:
 % 
-\author{\IEEEauthorblockN{Leandro Botelho\IEEEauthorrefmark{1},
-Augusto Cunha e
-Thales Vieira}
+\author{\IEEEauthorblockN{Leandro Botelho,
+Augusto Cunha\IEEEauthorrefmark{1} e
+Thales Vieira\IEEEauthorrefmark{1}}
 \IEEEauthorblockA{Universidade Federal de Alagoas\\
-\IEEEauthorrefmark{1}Instituto de Computação,
-Instituto de Matemática\\
+Instituto de Computação,
+\IEEEauthorrefmark{1}Instituto de Matemática\\
 Maceió, Alagoas.}}
 
 
@@ -258,9 +257,11 @@ Maceió, Alagoas.}}
 %==========================================
 \iffinal
 % use section* for acknowledgement
-\section*{Acknowledgment}
+\section*{Agradecimentos}
 %
-The authors would like to thank this colleague and this financing institute.
+Os autores gostariam de agradecer ao CNPQ e PROEST pelo formento oferecido aos alunos, e a UFAL
+pelo e o laboratório CalaMgo pelo estrutura física e materias necessários para a realização deste
+trabalho.
 \fi
 
 
@@ -269,7 +270,7 @@ The authors would like to thank this colleague and this financing institute.
 
 % trigger a \newpage just before the given reference
 % number - used to balance the columns on the last page
-% adjust value as needed - may need to be readjusted if
+% adjust value as needed - may need tAcknowledgmento be readjusted if
 % the document is modified later
 %\IEEEtriggeratref{8}
 % The "triggered" command can be changed if desired:
