@@ -14,14 +14,17 @@ Um dos grandes problemas no desenvolvimento de reconstrução de malhas, com cer
 
 Para nos auxiliar no problema de alinhamento em relação às duas malhas, utilizamos o algoritmo \textit{Iterative Closest Point} (ICP) \cite{Zhang:1994}; que nos fornece à minimização da distância de cada ponto de uma malha D, a cada ponto correspondente de cada malha M.
 
-Para o nosso problema, utilizamos um conjunto de passos para resolve-los. Inicialmente escolhemos nosso conjunto de vertíces de uma malha M, que apresenta seu respectivo correspondente à malha D; Segue \ref{ICP} como imagem. Após esse passo, utilizamos o cálculo dos centroides em relação à cada malha. Em seguida, desenvolvemos o cálculo do alinhamento, aonde envolvemos os principais operadores de transformação(rotação e translação, respectivamente) em relação à cada conjunto de correspondências entre M e D, na qual nos retorna uma matriz de transformação; e por fim aplicamos o alinhamento, utilizando a matriz de transformação em relação à malha que sofre a sobreposição.
+Para o nosso problema, utilizamos um conjunto de passos para resolve-los. Inicialmente escolhemos nosso conjunto de vertíces de uma malha M, que apresenta seu respectivo correspondente à malha D; Segue \figref{ICP} como imagem. Após esse passo, utilizamos o cálculo dos centroides em relação à cada malha. Em seguida, desenvolvemos o cálculo do alinhamento, aonde envolvemos os principais operadores de transformação(rotação e translação, respectivamente) em relação à cada conjunto de correspondências entre M e D, na qual nos retorna uma matriz de transformação; e por fim aplicamos o alinhamento, utilizando a matriz de transformação em relação à malha que sofre a sobreposição.
 
-\begin{figure}[h]
-\center
-    \includegraphics[width=8cm]{ImagemICP2}
-        \label{ICP}
-\end{figure}
-\vspace{4mm}
+%\begin{figure}[h]
+%\center
+%    \includegraphics[width=8cm]{ImagemICP2}
+%        \label{ICP}
+%\end{figure}
+%\vspace{4mm}
+\subimages[htb]{Iterative Closest Point}{ICP}{
+  \subimage{.7}{ImagemICP2}%
+}
 
 \subsection{Parametrização conforme}
 
