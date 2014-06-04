@@ -15,12 +15,16 @@ Por fim, destacamos diversos problemas de edição que carecem de alternativas r
 
 Ao longo do desenvolvimento de nosso trabalho, inicialmente utilizamos uma estrutura \cite{che05} capaz de manter as informações de geometria, topologia e conectividade de vértices, arestas e faces de uma malha triangular que representa uma superfícies bidimensional no espaço euclidiano.
 
+\subimages[htb]{Retalho Triângular}{Retalho}{
+  \subimage{.7}{retalho}%
+}
+
 %-------------- Tenho que pegar a imagem do retalho triangular ---------------------
 
 
 Com isso implementamos implementamos os operadores Gradiente Discreto e de Laplace- Beltrami Discreto. O operador de Laplace Beltrami Discreto implementado é definido, em cada vértice $x_i$, por:
 \begin{eqnarray}
-\triangle_{S}f(x_{i})=\omega_{i} \sum_{\upsilon_{j} \epsilon N_{1}(i) } v_{ij}(f(x_{i}) - f_{x_{j}})
+\triangle_{S}f(x_{i})=\omega_{i} \sum_{x_{j} \epsilon N_{1}(x_i) } \omega_{ij}(f(x_{j}) - f(x_{i}))
 \end{eqnarray}
 
 que para cada $\upsilon_{j} \epsilon N_{1}(i)$, pertence a vizinhança estrelada de cada $X_1$.
@@ -72,19 +76,19 @@ Uma implementação eficiente deste sistema foi desenvolvida usando-se a decompo
 %==========================================
 %\section{Technical background}
 %
-In this section, we detail this classical technique. The reader can find a more complete exposition in the work of Paul~\cite{Sibgrapi2014}.
+%In this section, we detail this classical technique. The reader can find a more complete exposition in the work of Paul~\cite{Sibgrapi2014}.
 
 
 %------------------------------------------------------------------------- 
 %\subsection{Important concept}
 %
-An \emph{important concept} is a type of object:
-\begin{definition}[Important concept]
-Given this and that, an object $X$ is an important concept if it respects the following properties\ldots{}
-\end{definition}
+%An \emph{important concept} is a type of object:
+%\begin{definition}[Important concept]
+%Given this and that, an object $X$ is an important concept if it respects the following properties\ldots{}
+%\end{definition}
 
 
 %------------------------------------------------------------------------- 
 %\subsection{Usual adaptation}
 %
-This concept has been used for applications similar to ours~\cite{Sibgrapi2014}, using the following formulation\ldots{}
+%This concept has been used for applications similar to ours~\cite{Sibgrapi2014}, using the following formulation\ldots{}
