@@ -13,47 +13,9 @@ Por fim, destacamos diversos problemas de edição que carecem de alternativas r
 
 \section{Visão Geral}
 
-Ao longo do desenvolvimento de nosso trabalho, inicialmente utilizamos uma estrutura \cite{che05} capaz de manter as informações de geometria, topologia e conectividade de vértices, arestas e faces de uma malha triangular que representa uma superfícies bidimensional no espaço euclidiano.
+Sejam $\mathcal{S}$ e $\mathcal{D}$ superfícies discretas representada por malhas de triângulos. Por simplicidade, vamos considerar que ambas contêm apenas um componente conexo. Nosso objetivo é reconstruir uma nova superfície $\mathcal{S}'$, inserindo um detalhe geométrico representado por $\mathcal{D}$ em uma determinada região de $\mathcal{S}$, minimizando possíveis cicatrizes. 
 
-\subimages[htb]{Retalho Triângular}{Retalho}{
-  \subimage{.7}{retalho}%
-}
-
-%-------------- Tenho que pegar a imagem do retalho triangular ---------------------
-
-
-Com isso implementamos implementamos os operadores Gradiente Discreto e de Laplace- Beltrami Discreto. O operador de Laplace Beltrami Discreto implementado é definido, em cada vértice $x_i$, por:
-\begin{eqnarray}
-\triangle_{S}f(x_{i})=\omega_{i} \sum_{x_{j} \epsilon N_{1}(x_i) } \omega_{ij}(f(x_{j}) - f(x_{i}))
-\end{eqnarray}
-
-que para cada $\upsilon_{j} \epsilon N_{1}(i)$, pertence a vizinhança estrelada de cada $X_1$.
-
-
-
-
-Para desenvolver esse tipo de ferramentas, focamos na Equação de Poisson:
-
-\begin{eqnarray}
-\bigtriangleup x' = div\  \textbf{$g_x$}
-\end{eqnarray}
-
-Esta equação pode ser adaptada para realização de malhas de triângulos, tendo sua versão discreta dada por:
-
-\begin{eqnarray}
-G^{T}MGx^{'} = G^{T}Mg_{x}
-\end{eqnarray}
-
-Onde:
-
-\begin{itemize}
-\item G = Uma matriz 3m x n representando o operador gradiente global, que multiplica um vetor de dimensão \textit{n} com os valores discretos das coordenadas $f_i$ dos \textit{n} vértices da malha para obter um vetor de dimensão \textit{m} com os gradientes dos m triângulos da malha.
-\item M é uma matriz diagonal que contém as áreas dos triângulos.
-\item $g_x$ representando os gradientes em relação à x (que é generalizado para as outras coordenadas.) 
-\end{itemize}
-Incorporando condições de fronteira de Dirichlet, é possível fixar regiões da malha (o bordo, em geral), e obter as coordenadas $x^{'}$  que aproximem melhor os gradientes desejados $g_x$. 
-Uma implementação eficiente deste sistema foi desenvolvida usando-se a decomposição de Cholesky. Para validar inicialmente nossos resultados, tentamos obter gradientes $g_x$ nulos, o que tende a minimizar as curvaturas das regiões selecionadas, fixando-se seu bordo, o que tende a suavizar a superfície. Para mais detalhes, recomendamos o artigo \cite{Olga}.
-
+Nosso método possui 3 etapas. Inicialmente, é realizado um alinhamento semi-automático, onde o usuário fornece correspondências desejadas entre pontos de $\mathcal{S}$ e $\mathcal{D}$. Em seguida, a conectividade de $\mathcal{S}'$ é obtida a partir de parametrizações conformes de $\mathcal{S}$ e $\mathcal{D}$, que são alinhadas e costuradas. Finalmente, a geometria de $\mathcal{S}'$ é reconstruída através de uma representação baseada em gradientes discretos.
 
 
 

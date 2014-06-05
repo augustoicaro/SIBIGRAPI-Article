@@ -1,56 +1,113 @@
-\section{Reconstrução}
-%
-Após a seleção das correspondências entre a malha principal e a malha do detalhe a ser
-adicionada e as parametrizações já estarem alinhadas, iremos trabalhar apenas com as parametrizaçãos
-no $\mathbb{R}^2$. Definimos o conjunto de half-edges do bordo da malha detalhe como 
-$B_d = {he_0, he_1, he_2, \ldots, he_n} | \forall n \in \mathbb{N}: O(he_n) = -1$ e
-$B_m$ da mesma forma para a malha principal, onde $O( )$ retorna o oposto da half-edge
-$he_n$, $-1$ se não existir e o indice do oposto caso exista, também definimos a poligonal
-$P = {v_0, v_1, v_2, ..., v_n} | \forall n \in \mathbb{N}: v_n = vertex(he_n)$, onde $vertex( )$ retorna o vertice
-da half-edge $he_n$. 
+\section{Geração da Triangulação}
+Para obtermos a conectividade da malha de triângulos de $\super'$, calculamos inicialmente parametrizações conforme de $\super$ e $\deta$. Em seguida, alinhamos os domínios das duas parametrizações usando o conjunto de correspondências $C$. Finalmente, uma nova triangulação é obtida costurando-se as duas triangulações.
 
-Sendo assim iremos excluir cada triângulo da parametrização da malha principal que intersecta ou é
-interior à $P$. Com isso observamos a criação de um componente conexo como podemos ver na \figref{hole},
-assim precisamos triangular o espaço entre as parametrizações. Para isto vamos usar uma triangulação com
-restrições.
+\subsection{Parametrização conforme}
+Dada uma superfície $M$ contida em $\mathbb{R}^3$, obter uma parametrização para $M$ significa determinar um domínio paramétrico $\Omega$, e uma função $f \colon \Omega \mapsto \mathbb{R}^3$. Para evitar problemas causados por distorção, optamos por um método que gera uma parametrização mais conforme possível, ou seja, uma parametrização que tenta preservar ângulos. Usamos o método conhecido como LSCM (\emph{Least Squares Conformal Maps}, \cite{Levy:2002}), que calcula uma parametrização quasi-conforme minimizando a energia conforme, descrita por equações de Cauchy-Riemann. 
 
-\subimages[htb]{Exclusão de triângulos pela parametrização}{hole}{
-  \subimage{.48}{parametrization_hole1}%
-  \subimage{.48}{parametrization_hole2}%
-}
+É importante destacar que o problema de mínimos quadrados a ser resolvido no método LSCM requer ao menos a fixação de 2 vértices para admitir solução única. Em nosso trabalho, calculamos a caixa delimitadora alinhada aos eixos (\emph{bounding box}) de $M$ e determinamos qual dos eixos apresenta a maior dimensão. Fixamos os vértices com menor e maior coordenada correspondente a este eixo. Para mais detalhes, ver \cite{Levy:2002}. 
 
-Em seguida iremos usar a Equação de Poisson para suavizar a colagem e ajustar melhor a malha ao espaço preenchido
-pela nova triangulação reduzindo o tamanho dos novos triângulos e aumentando o tamanho dos triângulos do detalhe,
-como podemos ver na \figref{reconstruction}.
+\subsection{Alinhamento dos domínios das parametrizações}
+Uma vez calculadas parametrizações $f_\super \colon \Omega_\super \mapsto \mathbb{R}^3$ e $f_\deta \colon \Omega_\deta \mapsto \mathbb{R}^3$ para $\super$ e $\deta$, respectivamente, é necessário alinhar os domínios das parametrizações $\Omega_\super$ e $\Omega_\deta$, para finalmente obtermos uma triangulação que irá representar $\mathcal{S}'$. 
 
-%------------------------------------------------------------------------- 
-\subsection{Triangulação com Restrições}
-%
-Usaremos a técnica de sweeping(varreduda) para realizar a triangulação, obedecendo o conjunto das
-arestas da restrição demominado por $E = {e_0, e_1, e_2, \ldots, e_n} | \forall n \in \mathbb{N}: e_n$ é uma aresta
-da restrição, onde os vértices das arestas da restrição  $ \subset (B_m \cup B_d)$, e o conjunto de arestas da
-primeira vizinhança de $B_m$ e $B_d$ demominado por $E_v = {e_0, e_1, e_2, \ldots, e_m, e_{m+1}, e_{m+2}, \ldots
-e_{m+n}} | \forall m, n \in \mathbb{N}: e_m$ é uma aresta da da primeira vizinhança de $B_m$ e $e_{M+n}$ é uma aresta
-da primeira vizinhança de $B_d$, onde $M$ é o número de arestas da primeira vizinhança de $B_m$.
+Aqui, usaremos novamente o conjunto de correspondências $C$ fornecido pelo usuário. Seja $C_{\Omega} = \left\{ \left(f_\super^{-1}(s_1),f_\deta^{-1}(d_1)\right),\dots,\left(f_\super^{-1}(s_n),f_\deta^{-1}(d_n)\right)\right\}$, ou seja, o conjunto das correspondências representadas nos domínios das parametrizações. Nosso objetivo é encontrar uma transformação $T_\Omega$ a ser aplicada nos vértices de $\Omega_\deta$, de modo que 
 
-A técnica consistem em:
-\begin{itemize}
- \item{Ordenar os vértices das arestas de $E_v$ de acordo com a coordena x;}
- \item{Ordenar os vértices de $B_m \cup B_d$ de acordo com a coordenada x;}
- \item{Testar a visibilidade de cada vértice com os vértices anteriores de ambos vetores;}
- \item{Se o ponto for visível, adicione a aresta à nova triangulação.}
-\end{itemize}
+\begin{equation}
+T_\Omega (f_\deta^{-1}(d_i)) = f_\super^{-1}(s_i), \, i=1 \dots n.
+\label{cond}
+\end{equation}
 
-Seguindo este algoritmo conseguimos uma triângulação que respeita as restrições, mas pode gerar triângulos muito
-finos ou muito pequenos como podemos ver na \figref{triangulation}.
+Porém, um simples movimento rígido não é capaz de garantir estas condições. Uma classe de transformações não rígidas que garantem a correspondência de pontos é a das \emph{Thin Plate Splines} (TPS, \cite{Bookstein}). Além desta característica, essas funções são globalmente suaves, fáceis de calcular, são separáveis em um componente afim, e outro não-afim que minimiza uma energia de distorção.
+
+Consideraremos uma TPS 2d como uma função $F \colon \mathbb{R}^2 \mapsto \mathbb{R}^2$, onde $F(\mathbf{x}) = (f_1(\mathbf{x}),f_2(\mathbf{x}))$, onde a energia
+$$ E(f) = \int \sum_{i,j} f_{x_i x_j}^2 dx_1dx_2$$
+é mínima para cada $f_i, \, i=1,2$. Além disso, estas funções terão a forma F(\mathbf{x}) = \mathbf{x}A + Kw, onde $\mathbf{x}$ é um ponto escrito em coordenadas homogêneas, $A$ é uma transformação afim, $w$ é um vetor coluna n-dimensional de parâmetros não-afins, e $K$ é um vetor linha n-dimensional, onde $K_i$ é a função de Green $U(|\mathbf{x}-f_\deta^{-1}(d_i)|)$, onde $U(r)=r^2 \ln (r)$.
+
+Desse modo, considerando $X = \left\{f_\deta^{-1}(d_1),\dots,f_\deta^{-1}(d_n) \right\}$ e $Y = \left\{f_\super^{-1}(s_1),\dots,f_\super^{-1}(s_n) \right\}$, podemos obter $F$ resolvendo diretamente:
+
+$$ \left( \begin{array}{c}
+w \\
+\hline
+A \end{array} \right)
+=
+ \left( \begin{array}{c|c}
+K & X \\
+\hline
+X^t & 0 \end{array} \right)^{-1}
+ \left( \begin{array}{c}
+Y \\
+\hline
+0 \end{array} \right).
+$$
+
+Finalmente, aplicamos $F$ em $\Omega_\deta$ para alinhar os domínios paramétricos. O último passo para obter a conectividade de $\mathcal{S}'$ é a costura das duas triangulações alinhadas $\Omega_\super$ e $F(\Omega_\deta)$. A partir de agora, consideraremos a nova parametrização do detalhe $\mathcal{D}$ como $\hat{f}_\deta(u,v) = f_\deta(F^{-1}(u,v))$. 
+
+\subsection{Costura dos domínios paramétricos}
+A conectividade de $\mathcal{S}'$ será definida pela conectividade da triangulação $\Omega_{\mathcal{S}'}$ que será obtida costurando-se as triangulações de $\Omega_\super$ e $F(\Omega_\deta)$. Esta nova triangulação será o domínio paramétrico de uma parametrização de $\mathcal{S}'$ definida como $f_{\mathcal{S}'} \colon \Omega_{\mathcal{S}'} \mapsto \mathbb{R}^3$, a qual será criada a partir das parametrizações $f_\super$ e $\hat{f}_\deta$, e cuja imagem $f_{\mathcal{S}'}(\Omega_{\mathcal{S}'})$ será a superfície reconstruída $\mathcal{S}'$. Vamos considerar apenas os casos onde o fecho convexo de $\Omega_\deta$ está contido no fecho convexo de $\Omega_\super$, visto que os detalhes geralmente são bem menores que a malha $\super$ e o usuário normalmente vai querer acrescentar o detalhe em alguma região do interior de $\super$. Descrevemos a seguir como obter $\Omega_{\mathcal{S}'}$.
+
+Inicialmente, excluímos cada triângulo de $\Omega_\super$ que intersecta algum triângulo de $\Omega_\deta$. Desse modo, garantimos que a conectividade do detalhe será preservada ao máximo (e consequentemente sua geometria). 
+
+Seja $\tilde{\Omega}_\super$ a triangulação resultante, e vamos considerar inicialmente \Omega_{\mathcal{S}'} = \tilde{\Omega}_\super \cup \Omega_\deta$. Esta triangulação é composta por dois componentes conexos: $\tilde{\Omega}_\super$ e $\Omega_\deta$. A faixa que separa estes componentes conexos será preenchida por triângulos usando um método de triangulação com restrições. 
+
+As arestas do bordo interno de $\tilde{\Omega}_\super$ e as arestas do bordo de $\Omega_\deta$ serão fixadas como a restrição para gerar os novos triângulos $\mathcal{T}$ que ligarão os dois componentes conexos, usando uma técnica de varredura. Para mais detalhes, ver \cite{luizhenrique}.
+
+A triangulação final $\Omega_{\mathcal{S}'} = \tilde{\Omega}_\super \cup \Omega_\deta \cup \mathcal{T}$, é composta por um único componente conexo, e será usada como domínio paramétrico para reconstruir a superfície $\mathcal{S}'$.
 
 \subimages[htb]{Triângulação com restrições}{triangulation}{
   \subimage{.48}{parametrization_trianguled1}%
   \subimage{.48}{parametrization_trianguled2}%
 }
 
-%------------------------------------------------------------------------- 
-\subsection{Equação de Poisson}
+
+\subimages[htb]{Exclusão de triângulos pela parametrização}{hole}{
+  \subimage{.48}{parametrization_hole1}%
+  \subimage{.48}{parametrization_hole2}%
+}
+
+\section{Reconstrução}
+
+Dado $\Omega_{\mathcal{S}'}$, vamos definir uma parametrização $f_{\mathcal{S}'}$ de $\mathcal{S}'$. Inicialmente, queremos que o pedaço da superfície que não será substituído pelo detalhe tenha sua geometria preservada. Daí determinamos que 
+\begin{equation}
+f_{\mathcal{S}'}(\mathbf{x}) = f_{\super}(\mathbf{x}), \, \mathbf{x} \in \Omega_\super.
+\label{initeq}
+\end{equation}
+ Para determinar o resto da parametrização, adaptamos um método baseado em gradientes. 
+
+Dada uma parametrização $f$ de uma malha de triângulos, podemos calcular os gradientes de cada função coordenada como 
+$$\nabla f(u,v) = \sum_{i=1}^n f_i \nabla \phi_i(u,v),$$
+
+onde $\phi_i$ são funções que dão coordenadas baricêntricas, $f_i$ é o valor da respectiva coordenada do ponto $p_i$. Além disso, $\nabla \phi_i, \nabla \phi_j$ e $\nabla \phi_k$ são constantes em cada triângulo $\Delta$ formado pelos pontos $(p_i,p_j,p_k)$, e podem ser calculados como
+$$(\nabla \phi_i, \nabla \phi_j, \nabla \phi_k) =   
+\left( \begin{array}{c}
+(p_i-p_k)^T \\
+(p_j-p_k)^T \\
+n^T \end{array} \right)^{-1}
+ \left( \begin{array}{ccc}
+1 & 0 & -1 \\
+0 & 1 & -1 \\
+0 & 0 & 0 \end{array} \right).$$ 
+
+Assim, dada uma malha, é possível definir um operador global matricial $\mathbf{G}$ que calcula os gradientes de cada função coordenada x', de acordo com a fórmula abaixo:
+\begin{equation}
+\mathbf{G}x' = \mathbf{g}_x. 
+\label{grad}
+\end{equation}
+
+Consequentemente, podemos definir um problema de otimização que reconstrói as funções coordenadas a partir dos gradientes dos triângulos. Nosso objetivo será reconstruir a geometria que será a imagem da parametrização $f_{\mathcal{S}'}$ no subdomínio paramétrico $\Omega_\deta \cup \mathcal{T}$. 
+
+O problema de minimização é então encontrar os valores de $f_{\mathcal{S}'}$ restrito a $\Omega_\deta \cup \mathcal{T}$ que minimizam a energia
+$$\int_{\Omega_\deta \cup \mathcal{T}} \| \nabla f_{\mathcal{S}'}(u,v) - \mathbf{g_x}\|^2 dudv,$$
+(e respectivamente $y'$ e $z'$), cuja condição de fronteira é o bordo de $\Omega_\deta \cup \mathcal{T}$, que já foi definido na Equação \ref{initeq}. Esta condição é fundamental para garantirmos continuidade na superfície. 
+
+Usando a Equação \ref{grad}, podemos obter os gradientes dos triângulos de $\super$. Além disso, como queremos uma transição suave, determinamos que os gradientes dos triângulos da superfície que serão dados como imagem de $f(\mathcal{T})$ serão nulos. 
+
+Usando mínimos quadrados, a solução do sistema é dada por
+\begin{eqnarray}
+G^{T}MGx^{'} = G^{T}Mg_{x},
+\end{eqnarray}
+
+onde $M$ é uma matriz diagonal contendo as áreas dos triângulos. As condições de fronteira são dadas por 
+$$p_i=c_i,$$
+onde $p_i$ e um ponto no bordo de $\Omega_\deta \cup \mathcal{T}$, que deve ser igual ao valor já calculado na Equação \ref{initeq}.
 
 \subimages[htb]{Resolução do sistema com gradiente 0 para todos os triângulos gerados pela triângulação com restrição}{reconstruction}{
   \subimage{.48}{reconstruction1}%
