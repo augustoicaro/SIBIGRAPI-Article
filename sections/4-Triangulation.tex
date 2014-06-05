@@ -20,7 +20,7 @@ Porém, um simples movimento rígido não é capaz de garantir estas condições
 
 Consideraremos uma TPS 2d como uma função $F \colon \mathbb{R}^2 \mapsto \mathbb{R}^2$, onde $F(\mathbf{x}) = (f_1(\mathbf{x}),f_2(\mathbf{x}))$, onde a energia
 $$ E(f) = \int \sum_{i,j} f_{x_i x_j}^2 dx_1dx_2$$
-é mínima para cada $f_i, \, i=1,2$. Além disso, estas funções terão a forma F(\mathbf{x}) = \mathbf{x}A + Kw, onde $\mathbf{x}$ é um ponto escrito em coordenadas homogêneas, $A$ é uma transformação afim, $w$ é um vetor coluna n-dimensional de parâmetros não-afins, e $K$ é um vetor linha n-dimensional, onde $K_i$ é a função de Green $U(|\mathbf{x}-f_\deta^{-1}(d_i)|)$, onde $U(r)=r^2 \ln (r)$.
+é mínima para cada $f_i, \, i=1,2$. Além disso, estas funções terão a forma $F(\mathbf{x}) = \mathbf{x}A + Kw$, onde $\mathbf{x}$ é um ponto escrito em coordenadas homogêneas, $A$ é uma transformação afim, $w$ é um vetor coluna n-dimensional de parâmetros não-afins, e $K$ é um vetor linha n-dimensional, onde $K_i$ é a função de Green $U(|\mathbf{x}-f_\deta^{-1}(d_i)|)$, onde $U(r)=r^2 \ln (r)$.
 
 Desse modo, considerando $X = \left\{f_\deta^{-1}(d_1),\dots,f_\deta^{-1}(d_n) \right\}$ e $Y = \left\{f_\super^{-1}(s_1),\dots,f_\super^{-1}(s_n) \right\}$, podemos obter $F$ resolvendo diretamente:
 
@@ -46,7 +46,7 @@ A conectividade de $\mathcal{S}'$ será definida pela conectividade da triangula
 
 Inicialmente, excluímos cada triângulo de $\Omega_\super$ que intersecta algum triângulo de $\Omega_\deta$. Desse modo, garantimos que a conectividade do detalhe será preservada ao máximo (e consequentemente sua geometria). 
 
-Seja $\tilde{\Omega}_\super$ a triangulação resultante, e vamos considerar inicialmente \Omega_{\mathcal{S}'} = \tilde{\Omega}_\super \cup \Omega_\deta$. Esta triangulação é composta por dois componentes conexos: $\tilde{\Omega}_\super$ e $\Omega_\deta$. A faixa que separa estes componentes conexos será preenchida por triângulos usando um método de triangulação com restrições. 
+Seja $\tilde{\Omega}_\super$ a triangulação resultante, e vamos considerar inicialmente $\Omega_{\mathcal{S}'} = \tilde{\Omega}_\super \cup \Omega_\deta$. Esta triangulação é composta por dois componentes conexos: $\tilde{\Omega}_\super$ e $\Omega_\deta$. A faixa que separa estes componentes conexos será preenchida por triângulos usando um método de triangulação com restrições. 
 
 As arestas do bordo interno de $\tilde{\Omega}_\super$ e as arestas do bordo de $\Omega_\deta$ serão fixadas como a restrição para gerar os novos triângulos $\mathcal{T}$ que ligarão os dois componentes conexos, usando uma técnica de varredura. Para mais detalhes, ver \cite{luizhenrique}.
 
